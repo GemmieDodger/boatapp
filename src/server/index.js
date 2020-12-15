@@ -45,7 +45,7 @@ const WaterTankPost = database.define('waterTankPosts', {
 epilogue.initialize({ app, sequelize: database });
 
 epilogue.resource({
-    model: Post,
+    model: Post, 
     endpoints: ['/posts', '/posts/:id'],
 });
 

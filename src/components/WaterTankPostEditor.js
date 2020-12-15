@@ -46,7 +46,7 @@ const PostEditor = ({
                 <form onSubmit={handleSubmit}>
                     <CardContent className={classes.modalCardContent}>
                         <Field name="filledDate">
-                            {({ input }) => <KeyboarDatePicker
+                            {({ input }) => <KeyboardDatePicker
                              clearable
                              label="filledDate" 
                              value={selectedDate} 

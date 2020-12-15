@@ -12,8 +12,7 @@ import {
   ListItemText,
   ListItemSecondaryAction,
 } from '@material-ui/core';
-import { Delete as DeleteIcon, Add as AddIcon } from '@material-ui/icons';
-import moment from 'moment';
+import { Delete as DeleteIcon, Add as AddIcon } from '@material-ui/icons'; 
 import { find, orderBy } from 'lodash';
 import { compose } from 'recompose';
 
@@ -69,7 +68,7 @@ class WaterTankPostsManager extends Component {
   }
 
   async getWaterTankPosts() {
-    this.setState({ loading: false, watertankposts: (await this.fetch('get', '/watertankposts')) || [] });
+    this.setState({ loading: false, waterTankPosts: (await this.fetch('get', '/watertankposts')) || [] });
   }
 
   saveWaterTankPost = async (waterTankPost) => {
@@ -108,7 +107,7 @@ class WaterTankPostsManager extends Component {
         {this.state.waterTankPosts.length > 0 ? (
           <Paper elevation={1} className={classes.waterTankPosts}>
             <List>
-              {orderBy(this.state.waterTankPosts, filledDate, desc).map(waterTankPost => (
+              {orderBy(this.state.waterTankPosts, filledDate, comment).map(waterTankPost => (
                 <ListItem key={waterTankPost.id} button component={Link} to={`/watertankposts/${waterTankPost.id}`}>
                   <ListItemText
                     primary={waterTankPost.filledDate}
