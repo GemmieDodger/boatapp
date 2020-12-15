@@ -41,6 +41,15 @@ const PostEditor = ({ classes, post, onSave, history }) => (
                         <Field name="title">
                             {({ input }) => <TextField label="Title" autoFocus {...input} />}
                         </Field>
+                        <Field name="location">
+                            {({ input }) => (
+                                <TextField
+                                    className={classes.marginTop}
+                                    label="Location"
+                                    {...input}
+                                />    
+                            )}
+                        </Field>
                         <Field name="body">
                             {({ input }) => (
                                 <TextField

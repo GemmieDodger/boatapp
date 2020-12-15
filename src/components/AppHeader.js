@@ -24,7 +24,7 @@ const AppHeader = ({ classes }) => (
          Boat Tracker App
        </Typography>
        <Button color="inherit" component={Link} to="/">Home</Button>
-       <Button color="inherit" component={Link} to="/posts">Posts</Button>
+       <Button color="inherit" component={Link} to="/posts">Locations</Button>
        <Button color="inherit" component={Link} to="/watertankposts">Water Tank</Button>
       <div className={classes.flex} />
       <LoginButton />

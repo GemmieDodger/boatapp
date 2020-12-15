@@ -36,6 +36,7 @@ const database = new Sequelize({
 const Post = database.define('posts', {
     title: Sequelize.STRING,
     body: Sequelize.TEXT,
+    location: Sequelize.TEXT
 });
 
 const WaterTankPost = database.define('waterTankPosts', {
@@ -43,6 +44,7 @@ const WaterTankPost = database.define('waterTankPosts', {
     comment: Sequelize.TEXT,
 });
 epilogue.initialize({ app, sequelize: database });
+
 
 epilogue.resource({
     model: Post, 

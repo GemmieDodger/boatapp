@@ -103,7 +103,7 @@ class PostsManager extends Component {
 
     return (
       <Fragment>
-        <Typography variant="h4">Posts Manager</Typography>
+        <Typography variant="h4">Your Favourite Locations!</Typography>
         {this.state.posts.length > 0 ? (
           <Paper elevation={1} className={classes.posts}>
             <List>
@@ -113,6 +113,7 @@ class PostsManager extends Component {
                     primary={post.title}
                     secondary={post.updatedAt && `Updated ${moment(post.updatedAt).fromNow()}`}
                   />
+                  <p>{post.location}</p>
                   <ListItemSecondaryAction>
                     <IconButton onClick={() => this.deletePost(post)} color="inherit">
                       <DeleteIcon />
