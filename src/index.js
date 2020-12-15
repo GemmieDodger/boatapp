@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter }from 'react-dom';
-import { Security } from '@okta/okta-react'
+import { BrowserRouter }from 'react-router-dom';
+import { Security } from '@okta/okta-react';
 
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+/*import * as serviceWorker from './serviceWorker';*/
 
+console.log(process.env.REACT_APP_OKTA_ORG_URL)
 const oktaConfig = {
   issuer: `${process.env.REACT_APP_OKTA_ORG_URL}/oauth2/default`,
   redirect_uri: `${window.location.origin}/login/callback`,

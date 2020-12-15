@@ -10,5 +10,5 @@ https://developer.okta.com/blog/2018/07/10/build-a-basic-crud-app-with-node-and-
 
 
 export default () => (
-    <Typography variant="h4">Welcome to the ultimate boat tracking app!</Typography>
+    <Typography variant="h4">Welcome to your ultimate personal boat tracking!</Typography>
 )

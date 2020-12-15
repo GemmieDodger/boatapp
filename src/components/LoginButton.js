@@ -1,79 +1,80 @@
+
 import React, { Component } from 'react';
 import {
-    Button,
-    IconButton,
-    Menu,
-    MenuItem,
-    ListItemText,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+  ListItemText,
 } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
-import { withOktaAuth } from '@okta'
+import { withOktaAuth } from '@okta/okta-react';
 
 class LoginButton extends Component {
-    state = {
-        authenticated: null,
-        user: null,
-        menuAnchorEl: null,
+  state = {
+    authenticated: null,
+    user: null,
+    menuAnchorEl: null,
+  };
+
+  componentDidUpdate() {
+    this.checkAuthentication();
+  }
+
+  componentDidMount() {
+    this.checkAuthentication();
+  }
+
+  async checkAuthentication() {
+    const authenticated = await this.props.authState.isAuthenticated;
+    if (authenticated !== this.state.authenticated) {
+      const user = await this.props.authService.getUser();
+      this.setState({ authenticated, user });
+    }
+  }
+
+  login = () => this.props.authService.login('/'); /*in the picture of edited version login/logout do not have '/' inside:  https://devforum.okta.com/t/okta-react-typeerror-object-is-not-a-function/8362/6*/
+  logout = () => {
+    this.handleMenuClose();
+    this.props.authService.logout('/');
+  };
+
+  handleMenuOpen = event => this.setState({ menuAnchorEl: event.currentTarget });
+  handleMenuClose = () => this.setState({ menuAnchorEl: null });
+
+  render() {
+    const { authenticated, user, menuAnchorEl } = this.state;
+
+    if (authenticated === null) return null;
+    if (!authenticated) return <Button color="inherit" onClick={this.login}>Login</Button>;
+
+    const menuPosition = {
+      vertical: 'top',
+      horizontal: 'right',
     };
 
-    componentDidUpdate() {
-        this.checkAuthentication();
-    }
-
-    componentDidMount() {
-        this.checkAuthentication();
-    }
-
-    async checkAuthentication() {
-        const authenticated = await this.props.authState.isAuthenticated();
-        if (authenticated !== this.state.authenticated) {
-            const user = await this.props.authService.getUser();
-            this.setState({ authenticated, user });
-        }
-    }
-
-    login = () => this.props.authService.login('/');
-    logout = () => {
-        this.handleMenuClose();
-        this.props.authService.logout('/');
-    };
-
-    handleMenuOpen = event => this.setState({ menuAnchorEl: event.currentTarget});
-    handleMenuClose = () => this.setState({ menuAnchorEl: null });
-
-    render() {
-        const { authenticated, user, menuAnchorEl } = this.state;
-
-        if (authenticated === null) return null;
-        if (!authenticated) return <Button color="inherit" onClick={this.login}>Login</Button>;
-    
-        const menuPosition = {
-            vertical: 'top',
-            horizontal: 'right',
-        };
-        
-        return (
-            <div>
-                <IconButton onClick={this.handleMenuOpen} color="inherit">
-                    <AccountCircle/>
-                </IconButton>
-                <Menu
-                    anchorEl={menuAnchorE1}
-                    anchorOrigin={menuPosition}
-                    transformOrigin={menuPosition}
-                    open={!!menuAnchorEl}
-                    onClose={this.handleMenuClose}
-                    >
-                        <MenuItem onClick={this.logout}>
-                            <ListItemText
-                                primary="Logout"
-                                secondary={user && user.name}
-                                />
-                        </MenuItem>
-                </Menu>
-            </div>
-        );
-    }
+    return (
+      <div>
+        <IconButton onClick={this.handleMenuOpen} color="inherit">
+          <AccountCircle />
+        </IconButton>
+        <Menu
+          anchorEl={menuAnchorEl}
+          anchorOrigin={menuPosition}
+          transformOrigin={menuPosition}
+          open={!!menuAnchorEl}
+          onClose={this.handleMenuClose}
+        >
+          <MenuItem onClick={this.logout}>
+            <ListItemText
+              primary="Logout"
+              secondary={user && user.name}
+            />
+          </MenuItem>
+        </Menu>
+      </div>
+    );
+  }
 }
 
 export default withOktaAuth(LoginButton);
